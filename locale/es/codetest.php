@@ -12,6 +12,11 @@ return [
         "usage.by.student" => "Por estudiantes",
         "usage.by.exercise" => "Por pregunta",
         "build" => "Crear",
+        "home" => "Inicio",
+        "exercises.create" => "Crear ejercicio",
+        "exercises.list" => "Lista de ejercicios",
+        "exercises.authorkit" => "Importar desde AuthorKit",
+        "exercises.codetest" => "Importar desde Codetest",
         "exit.student.view" => "Salir de la vista de estudiante",
     ],
     "pages-title" => [
@@ -21,9 +26,12 @@ return [
         "result.by.student" => "Resultados <small>por estudiante</small>",
         "usage.by.exercise" => "Comentarios <small>por pregunta</small>",
         "usage.by.student" => "Comentarios <small>por Estudiante</small>",
+        "exercises.management" => "Gestión de los ejercicios",
+        "export-context" => "Exportar contexto"
     ],
     "main-title" => [
         "lead" => "Añade preguntas para obtener rápidamente comentarios de tu estudiante",
+        "lead2" => "Juez virtual que soporta programación y formación de bases de datos",
         "help" => "Ayuda",
         "edit.title.text" => "Editar texto del título",
         "title.text" => "Texto título",
@@ -103,7 +111,7 @@ return [
         "click.import.or.enter" => 'Haga clic en el botón Importar o presione "Intro" en su teclado',
         "editing.file" => "Edición del título",
         "edit.title.clicking" => "Puedes editar el título de este Code Test haciendo clic en el icono de edición junto al título en la parte superior de esta página.",
-        "if.no.exercise.edit" => "Si no hay pregunta en este Code Test, también puede editar su tipo.",
+        "if.no.exercise.edit" => "Si no hay ningún ejercicio en esta prueba de código, también puede editar su tipo.",
     ],
     "results" => [
         "download" => "Descargar resultados",
@@ -236,5 +244,19 @@ return [
         "grade.saved.success" => "Nota guardada.",
         "connection.failed" => "No se pudo conectar con el repositorio",
         "exercise.code.percent" => "La salida de tu código coincide en un %percent%%% de la respuesta correcta",
+    ],
+    "help-pages" => [
+        "ak-projects-list" => [
+            "message" => "Esta es una lista de proyectos dentro de Authorkit"
+        ],
+        "ak-exercises-list" => [
+            "message" => "Esta es una lista de ejercicios dentro del proyecto <b>%project.name%</b> de Authorkit"
+        ],
+        "create-exercise" => [
+            "message" => "Aquí puedes crear las preguntas que se utilizarán para las pruebas de estudiantes"
+        ],
+        "exercises-list" => [
+            "message" => "Aquí está la lista de ejercicios dentro de esta actividad Codetest"
+        ],
     ]
 ];
