@@ -34,9 +34,9 @@ $apphome = false;
 if ( $apphome ) {
     $wwwroot = $apphome . '/tsugi';
 } else if ( U::get($_SERVER,'SERVER_PORT') == 8888 ) {
-    $wwwroot = 'http://localhost:8888/tsugi'; // Mac XAMP
+    $wwwroot = 'http://'.(getenv('TSUGI_DOMAIN') ?: 'localhost').':8888/tsugi'; // Mac XAMP
 } else {
-    $wwwroot = "http://localhost/tsugi";
+    $wwwroot = 'http://'.(getenv('TSUGI_DOMAIN') ?: 'localhost').'/tsugi';
 }
 // Once you are on a real server delete the above if statement
 // and set the wwwroot directly.  This must be the actual URL used

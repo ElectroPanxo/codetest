@@ -11,7 +11,7 @@ return [
         "usages" => "Opiniones",
         "usage.by.student" => "Por estudiantes",
         "usage.by.exercise" => "Por pregunta",
-        "build" => "Crear",
+        "build" => "Ejercicios",
         "home" => "Inicio",
         "exercises.create" => "Crear ejercicio",
         "exercises.list" => "Lista de ejercicios",
@@ -26,17 +26,42 @@ return [
         "result.by.student" => "Resultados <small>por estudiante</small>",
         "usage.by.exercise" => "Comentarios <small>por pregunta</small>",
         "usage.by.student" => "Comentarios <small>por Estudiante</small>",
-        "exercises.management" => "Gestión de los ejercicios",
         "export-context" => "Exportar contexto"
     ],
     "main-title" => [
         "lead" => "Añade preguntas para obtener rápidamente comentarios de tu estudiante",
         "lead2" => "Juez virtual que soporta programación y formación de bases de datos",
+        "exercises" => "Ejercicios",
+        "exercises.create" => "Crear ejercicio",
+        "exercises.list" => "Lista de ejercicios",
+        "exercises.authorkit" => "Importar desde AuthorKit",
+        "exercises.codetest" => "Reutilizar ejercicios de Codetest",
+        "usages" => "Opiniones",
+        "usages.exercise" => "Por ejercicio",
+        "usages.user" => "Por usuario",
+        "results" => "Resultados",
+        "results.student" => "Por estudiante",
+        "results.exercise" => "Por ejercicio",
+        "results.download" => "Descargar los resultados",
+        "grades" => "Puntuaciones",
+        "grades.average" => "Media:",
+        "grades.max" => "Máx:",
+        "grades.min" => "Mín:",     
+        "import/export" => "Importar/Exportar contexto",
+        "import/export.export" => "Exportar el contexto actual a un archivo ZIP",
+        "import/export.import" => "Importar un archivo ZIP al contexto actual",
+        "import/export.import.confirm" => "Confirmar la importación",
+        "preview" => "Vista de estudiante",
+        "preview.view" => "Prueba y previsualiza tus ejercicios antes de enviarlos a los estudiantes",
         "help" => "Ayuda",
         "edit.title.text" => "Editar texto del título",
         "title.text" => "Texto título",
         "save.title.text" => "Guardar texto del título",
         "cancel.title.text" => "Cancelar texto de título",
+        "title" => [
+            "programming" => "PROGRAMACIÓN",
+            "sql" => "SQL"
+        ]
     ],
     "instructor" => [
         "add.exercise" => "Añadir pregunta",
@@ -107,9 +132,9 @@ return [
         "general-help" => "Asistencia general",
         "use.this.page.add" => "Utiliza esta página para añadir preguntas a tus estudiantes. Una vez que añadas una pregunta está disponible inmediatamente para los estudiantes.",
         "import-exercises" => "Importar preguntas",
-        "click.import-exercises" => 'Haga clic en "Importar preguntas"',
-        "select.to.add" => "Seleccione las preguntas a añadir",
-        "click.import.or.enter" => 'Haga clic en el botón Importar o presione "Intro" en su teclado',
+        "click.import-exercises" => 'Haga clic en "Importar preguntas".',
+        "select.to.add" => "Selecciona los ejercicios para añadir.",
+        "click.import.or.enter" => 'Haga clic en el botón Importar o presione "Intro" en su teclado.',
         "editing.file" => "Edición del título",
         "edit.title.clicking" => "Puedes editar el título de este Code Test haciendo clic en el icono de edición junto al título en la parte superior de esta página.",
         "if.no.exercise.edit" => "Si no hay ningún ejercicio en esta prueba de código, también puede editar su tipo.",
@@ -125,7 +150,7 @@ return [
         "student" => [
             "view.results" => "Viendo resultados",
             "you.are.viewing.exercise.results" => "Estás viendo los resultados por estudiante. Haz clic en un estudiante para ver cómo el estudiante respondió cada pregunta.",
-            "sorted.recent" => "Los estudiantes están ordenados con los más recientemente presentados en la parte superior de la lista."
+            "for.each.sorted.recent" => "Los estudiantes están ordenados con los más recientemente presentados en la parte superior de la lista."
         ],
     ],
     "create-exercise-modal" => [
@@ -214,16 +239,83 @@ return [
         "solutionmustcontain" => "Tu solución debe contener",
         "solutionshouldntcontain" => "Tu solución no debe contener",
         "yoursolutionis" => "Tu solución es",
+        "correct" => 'Respuesta correcta',
+        "incorrect" => 'Respuesta incorrecta',
+        "blank" => 'No respondida',
+        "answer-output" => 'Tu solución es',
         "submit" => "Enviar",
         "answer" => "Respuesta",
         "next" => "Siguiente",
-        "previous" => "Anterior",
+        "previous" => "Prev",
     ],
     "new-exercise-form" => [
         "exercisetitle" => "Título de la pregunta",
         "keywordsseparatedlines" => "Etiquetas (separadas por líneas)",
-        "mustcontainseparatedlines" => "Debe contener (separado por líneas)",
-        "shouldntcontain" => "No debería contener"
+        "mustcontainseparatedlines" => "Debe contener",
+        "shouldntcontain" => "No debería contener",
+        "labels" => [
+            "statement" => "Enunciado",
+            "hint" => "Pista",
+            "tests" => "Tests (separados por líneas)",
+            "inputs" => "Con las siguientes entradas",
+            "outputs" => "Se espera obtener esta salida",
+            "restrictions" => "Restricciones (separadas por líneas)",
+        ]
+    ],
+    "import-authorkit" => [
+        "exercises.management" => "Gestión de los ejercicios",
+        "projects" => "Proyectos de AuthorKit",
+        "home" => "Volver al inicio",
+        "number.exercises" => "Número de ejercicios:",
+        "project-status" => "Estado del proyecto:",
+        "status" => [
+            "open" => "Abierto",
+            "draft" => "Borrador",
+            "annonunced" => "Anunciado",
+        ],
+        "project-accessibility" => [
+            "public" => "Proyecto público",
+            "private" => "Proyecto privado"
+        ]
+    ],
+    "ak-exercises-list" => [
+        "title" => "Mostrando ejercicios del proyecto :",
+        "home" => "Back to projects list",
+        "labels" => [
+            "title" => "Title:",
+            "module" => "Module:",
+            "difficulty" => "Difficulty:",
+            "status" => "Status:",
+            "keywords" => "Keywords:",
+            "type" => "Type:",
+            "platform" => "Platform:",
+            "programmingLanguages" => "Programming languages:"
+        ],
+        "labels-values" => [
+            "difficulty" => [
+                "beginner" => "Beginner",
+                "easy" => "Easy",
+                "average" => "Average",
+                "hard" => "Hard",
+                "master" => "Master"
+            ],
+            "status" => [
+                "draft" => "Draft",
+                "unpublished" => "Unpublished",
+                "published" => "Published",
+                "trash" => "Trash"
+            ],
+            "type" => [
+                "blank_sheet" => "Blank sheet",
+                "extension" => "Extension",
+                "improvement" => "Improvement",
+                "bug_fix" => "Bug fix",
+                "fill_in_gaps" => "Fill in gaps",
+                "sort_blocks" => "Sort blocks",
+                "spot_bug" => "Spot bug"
+            ],
+            "not-specified" => "--  Not specified --"
+        ]
     ],
     "backend-messages" => [
         "title.saved.success" => "Título guardado",

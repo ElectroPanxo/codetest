@@ -32,7 +32,7 @@ $twig = new \Twig\Environment($loader, [
     'cache' => $CFG->twig['cachePath'],
 ]);
 
-$jsonData = JSONManager::getJsonData($CFG->codetestBasePath. '/rest-data.json');
+$jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
 
 
 if(!empty($jsonData['authorkit']['token'])){

@@ -14,36 +14,38 @@
             </div>
         </div>
 
-        <div class="w-full mt-4">
-            {% embed "components/ct-textarea.php.twig"
-                with {
-                    label: "new-exercise-form.labels.restrictions"|trans,
-                    name: '',
-                    exercise: exercise
-                } only
-                %}
-                {% block input %}
-                    <div class="p-0 flex gap-10 items-stretch">
-                        <div class="flex-grow w-[50%]">
-                            <div class="text-center">
-                                {%trans%}
-                                    student-exercise.solutionmustcontain
-                                {%endtrans%}
+        {% if exercise.getExerciseMust() or exercise.getExerciseMusnt() %}
+            <div class="w-full mt-4">
+                {% embed "components/ct-textarea.php.twig"
+                    with {
+                        label: "new-exercise-form.labels.restrictions"|trans,
+                        name: '',
+                        exercise: exercise
+                    } only
+                    %}
+                    {% block input %}
+                        <div class="p-0 flex gap-10 items-stretch">
+                            <div class="flex-grow w-[50%]">
+                                <div class="text-center">
+                                    {%trans%}
+                                        student-exercise.solutionmustcontain
+                                    {%endtrans%}
+                                </div>
+                                <pre class="min-h-[150px]">{{ exercise.getExerciseMust() }}</pre>
                             </div>
-                            <pre class="min-h-[150px]">{{ exercise.getExerciseMust() }}</pre>
-                        </div>
-                        <div class="flex-grow w-[50%]">
-                            <div class="text-center">
-                                {%trans%}
-                                    student-exercise.solutionshouldntcontain
-                                {%endtrans%}
+                            <div class="flex-grow w-[50%]">
+                                <div class="text-center">
+                                    {%trans%}
+                                        student-exercise.solutionshouldntcontain
+                                    {%endtrans%}
+                                </div>
+                                <pre class="min-h-[150px]">{{ exercise.getExerciseMusnt() }}</pre>
                             </div>
-                            <pre class="min-h-[150px]">{{ exercise.getExerciseMusnt() }}</pre>
                         </div>
-                    </div>
-                {% endblock %}
-            {% endembed %}
-        </div>
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        {% endif %}
 
         {%
             include (CFG.CT_Types.studentsPath ~ main.getTypeProperty('studentView', exercise.getType()))

@@ -1,0 +1,21 @@
+FROM node:16.13.2
+ARG GITHUB_TOKEN=${GITHUB_TOKEN}
+ARG FEEDBACK_MANAGER_BRANCH=${FEEDBACK_MANAGER_BRANCH}
+
+RUN apt-get update
+
+RUN apt-get install -y git
+
+RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+
+WORKDIR /app
+
+RUN git clone --branch ${FEEDBACK_MANAGER_BRANCH} https://github.com/KA226-COVID/feedback-manager.git
+
+WORKDIR /app/feedback-manager/minimal feedback
+
+RUN npm i
+
+EXPOSE 3003
+
+ENTRYPOINT [ "npm", "run", "prod" ]

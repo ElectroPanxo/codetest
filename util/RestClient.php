@@ -38,7 +38,7 @@ class RestClient
     public function getClient()
     {
         global $CFG;
-        $jsonData = JSONManager::getJsonData($CFG->codetestBasePath. '/rest-data.json');
+        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
         if($this->isAuthorKit){
             $expireTime = $jsonData['authorkit']['token']['expireDate'];
             $expireRefreshTime = $jsonData['authorkit']['token']['expireRefreshDate'];
@@ -82,7 +82,7 @@ class RestClient
 
         $this->log("Refreshing authorkit token...");
 
-        $jsonData = JSONManager::getJsonData($CFG->codetestBasePath. '/rest-data.json');
+        $jsonData = JSONManager::getJsonData(getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
 
         $response = $this->client->request('POST', AUTHOR_REFRESH_URL, [
             'json' => [
@@ -119,7 +119,7 @@ class RestClient
         $responseData['recievedAt'] = $dateNowStr;
         $this->token = $responseData['accessToken'];
 
-        JSONManager::setKeyValue('[authorkit][token]', $responseData, $CFG->codetestBasePath. '/rest-data.json');
+        JSONManager::setKeyValue('[authorkit][token]', $responseData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
 
         $client = HttpClient::create();
         $client = $client->withOptions([
@@ -155,7 +155,7 @@ class RestClient
         $returnData['expiresIn'] = $returnData['expireDate'] - $currentTime;
         $this->token = $tokenStr;
 
-        JSONManager::setKeyValue('[spring-repo][token]', $returnData, $CFG->codetestBasePath. '/rest-data.json');
+        JSONManager::setKeyValue('[spring-repo][token]', $returnData, getenv("CODETEST_REST_FILE_PATH") ? sys_get_temp_dir().getenv("CODETEST_REST_FILE_PATH") : $CFG->codetestBasePath. '/rest-data.json');
 
         $client = HttpClient::create();
         $client = $client->withOptions([

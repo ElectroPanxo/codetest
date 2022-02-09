@@ -39,12 +39,28 @@ This is a guide for JuezLTI developers
 
 ## Development environment
 
+For development purposes the best approach is to setup all the necessary services at you local machine.
+
+Services list:
+
+- Tsugi
+- Codetest
+- Questions-storage
+- MySQL
+- MongoDB
+- Webpack dev-server
+- XML-validator
+- Feedback-manager
 
 This is the guide to follow to get a development environment configured:
+
+> ENVIRONMENT SETUP
 
 - Install Apache [ 2.4.46 ], PHP [ 7.3.21 ], Node [ 14.15.1 ] and Java [ 8 ]
 
 - Configure a MySQL [ 5.7 ] and a MongoDB [ 4.4.9 ]
+
+> TSUGI CONFIG
 
 - Create a folder called "tsugi" inside your `www` folder
 
@@ -55,6 +71,8 @@ This is the guide to follow to get a development environment configured:
 - Configure your MySQL credentials there
 
 - Create a folder inside tsugi, for codetest: `www/tsugi/mod/codetest`
+
+> CODETEST CONFIG
 
 - Clone the [Codetest repo](https://github.com/KA226-COVID/codetest/tree/master) inside that folder
 
@@ -72,7 +90,9 @@ This is the guide to follow to get a development environment configured:
 
 - This will download the dependencies for PHP
 
-> ⚠ PHP needs writing permissions to `www/tsugi/mod/codetest`
+- ⚠ PHP needs writing permissions to `www/tsugi/mod/codetest`
+
+> FRONTEND SETUP
 
 - Run the command:
 
@@ -86,15 +106,11 @@ This is the guide to follow to get a development environment configured:
 
 - This will build all the assets for production and will place them into the `public` folder
 
-<br>
+- ⚠ Depending if you are using the production build or the development build, maybe you will need to modify the file `www/tsugi/mod/codetest/views/dao/tool-footer.php.twig` to use one set of assets or another
+s
+- After that you will be able to access tsugi at `http://localhost/tsugi`
 
-> ⚠ Depending if you are using the production build or the development build, maybe you will need to modify the file `www/tsugi/mod/codetest/views/dao/tool-footer.php.twig` to use one set of assets or another
-
-<br>
-
-> After that you will be able to access tsugi at `http://localhost/tsugi`
-
-<br>
+> MYSQL DB SETUP
 
 - With tsugi running you need to upgrade the database (this will create all the tables needed for tsugi and codetest)
 
@@ -104,11 +120,11 @@ This is the guide to follow to get a development environment configured:
 
 - Click 'Upgrade Database' and wait for the process to finish
 
-<br>
-
 - After that you will need to get the `questions-storage` up and running
 
-- Clone the [questions-storage](https://github.com/KA226-COVID/questions-storage) repository
+> QUESTIONS-STORAGE SETUP
+
+- Clone the [questions-storage repository](https://github.com/KA226-COVID/questions-storage) 
 
 - Configure your MongoDB credentials at `application.properties`
 
@@ -116,7 +132,9 @@ This is the guide to follow to get a development environment configured:
 
       ./mvnw spring-boot:run
 
-> At this point you should be able to access the questions-storage API at `http://localhost:8080/`
+- At this point you should be able to access the questions-storage API at `http://localhost:8080/`
+
+> CREATE USER
 
 - After the spring server is online, you need to create an user, using the endpoint
 
@@ -141,9 +159,23 @@ This is the guide to follow to get a development environment configured:
           "email": "codetest@email.com"
       }'
 
-<br>
+- ⚠ The user created in this step must be configured inside the codetest file `config.php`, inside the object `$CFG->apiConfigs`
 
-- > ⚠ The user created in this step must be configured inside the codetest file `config.php`, inside the object `$CFG->apiConfigs`
+> SETUP XML-VALIDATOR
+
+- Clone the [xml-validator repository](https://github.com/KA226-COVID/xml-evaluator) 
+
+- Inside the folder `xml-evaluator/server` execute the command `npm run prod`
+
+- After this you should be able to access the validator at the address `http://localhost:3000/`
+
+> SETUP FEEDBACK-MANAGER
+
+- Clone the [feedback-manager repository](https://github.com/KA226-COVID/feedback-manager)
+
+- Inside de folder `feedback-manager` execute the command `npm run prod`
+
+- After this the feedback manager will be available at the address `http://localhost:3003/`
 
 <br>
 
@@ -257,7 +289,6 @@ Then generate a new token:
 - Choose a name
 
 - Copy the token value
-
 
 Create a new file at the root folder of the project, called ".env", based on the file ".env.example"
 

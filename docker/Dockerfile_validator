@@ -1,5 +1,6 @@
-FROM node:14.18
+FROM node:16.13.2
 ARG GITHUB_TOKEN=${GITHUB_TOKEN}
+ARG VALIDATOR_BRANCH=${VALIDATOR_BRANCH}
 
 RUN apt-get update
 
@@ -9,7 +10,7 @@ WORKDIR /app
 
 RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
-RUN git clone --branch master https://github.com/KA226-COVID/xml-evaluator.git
+RUN git clone --branch ${VALIDATOR_BRANCH} https://github.com/KA226-COVID/xml-evaluator.git
 
 WORKDIR /app/xml-evaluator/server
 

@@ -3,12 +3,18 @@ services:
   tsugi-codetest:
     container_name: tsugi_codetest_container
     image: tsugi_codetest_img
+    restart: unless-stopped
     depends_on:
       - tsugi-mysql-db
       - spring-codetest
+    environment:
+      TSUGI_DOMAIN: ${TSUGI_DOMAIN}
     build:
       context: ./
       dockerfile: Dockerfile_tsugi-ct
+      args:
+        TSUGI_BRANCH: ${TSUGI_BRANCH}
+        CODETEST_BRANCH: ${CODETEST_BRANCH}
     ports:
       - 80:80
     command: bash -c "/var/www/html/tsugi/mod/codetest/init-tsugi.sh"
@@ -20,9 +26,12 @@ services:
   spring-codetest:
     container_name: spring_codetest_container
     image: spring_codetest_img
+    restart: unless-stopped
     build:
       context: ./
       dockerfile: Dockerfile_repo
+      args:
+          REPO_BRANCH: ${REPO_BRANCH}
     depends_on:
       - spring-mongo-db
     environment:
@@ -36,21 +45,43 @@ services:
   xml-validator:
     container_name: xml-validator_container
     image: xml-validator_img
+    restart: unless-stopped
     build:
       context: ./
       dockerfile: Dockerfile_validator
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
+        VALIDATOR_BRANCH: ${VALIDATOR_BRANCH}
+    environment:
+      FEEDBACK_MANAGER_URL: ${FEEDBACK_MANAGER_URL}
+      BASE_URL: ${XML_EVALUATOR_REQUESTS_BASE_URL}
+      PORT: ${XML_EVALUATOR_PORT}
+      EMAIL: ${XML_EVALUATOR_REQUESTS_EMAIL}
+      PASSWORD: ${XML_EVALUATOR_REQUESTS_PASSWORD}
     ports:
       - 3001:3000
+  feedback-manager:
+    container_name: feedback-manager_container
+    image: feedback-manager_img
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: Dockerfile_feedback_manager
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        PORT: ${FEEDBACK_MANAGER_PORT}
+        FEEDBACK_MANAGER_BRANCH: ${FEEDBACK_MANAGER_BRANCH}
+    ports:
+      - 3004:3003
   tsugi-mysql-db:
     container_name: tsugi_mysql_db_container
     image: 'mysql:5.7'
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: tsugi_root_pw
-      MYSQL_DATABASE: tsugi
-      MYSQL_USER: tsugi_root
-      MYSQL_PASSWORD: tpass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - 3307:3306
     volumes:
@@ -58,10 +89,11 @@ services:
   spring-mongo-db:
     container_name: spring_mongo_db_container
     image: 'mongo:4.4.9'
+    restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root_pass
-      MONGO_INITDB_DATABASE: repository
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - 27018:27017
     volumes:

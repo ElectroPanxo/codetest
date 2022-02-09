@@ -12,14 +12,16 @@ $toolTitle = $main->getTitle() ? $main->getTitle() : "Code Test";
 $exercises = $main->getExercises();
 $totalExercises = count($exercises);
 
-$firstExerciseId = $exercises[0]->getAkId();
-
 $currentExerciseNumber = isset($_GET['exerciseNum']) ? $_GET['exerciseNum'] : 1;
+
+$firstExerciseId = $exercises[$currentExerciseNumber - 1]->getAkId();
 
 $exerciseTestsResponse = $REST_CLIENT_REPO->getClient()->request('GET', "api/exercises/$firstExerciseId/tests");
 $testsResponseObj = $exerciseTestsResponse->toArray();
 
 $testsObj = sizeof($testsResponseObj) > 0 ? $testsResponseObj[0] : null;
+
+// var_dump($testsObj);die;
 
 $user = new \CT\CT_User($USER->id);
 

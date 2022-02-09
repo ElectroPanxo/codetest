@@ -42,6 +42,11 @@ if (!isset($answerText) || trim($answerText) == "") {
         $answerOutput = $response->getContent();
     }
 
+    // Remove quotes from start and beggining if they exist
+    if(!is_null($answerOutput) && strlen($answerOutput) > 0 && substr($answerOutput, 0, 1) == "\"" && substr($answerOutput, -1) == "\""){
+        $answerOutput = substr($answerOutput, 1, strlen($answerOutput) -2);
+    }
+
     $array = $exercise1->createAnswer($USER->id, $answerText, $answerLanguage, $answerOutput);
     $answer = $array['answer'];
 
