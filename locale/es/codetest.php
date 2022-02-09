@@ -61,6 +61,7 @@ return [
         "student-name" => "Nombre del estudiante",
         "last-updated" => "Última actualización",
         "completed" => "Completado",
+        "show-code" => "Mostrar código",
     ],
     "usage-table" => [
         "exercise" => "Pregunta",

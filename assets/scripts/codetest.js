@@ -936,3 +936,18 @@ global.showImportExercise = function() {
         }
     });
 }
+
+global.showModal = function(id){
+    var modalCode = document.getElementById("modalCode" + id);
+    var btnModalCode = document.getElementById("btnModalCode" + id);
+
+    
+    modalCode.style.display = "block";
+    
+
+    window.onclick = function(event) {
+        if (event.target == modalCode) {
+            modalCode.style.display = "none";
+        }
+    }
+}

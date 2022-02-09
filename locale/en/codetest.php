@@ -86,6 +86,7 @@ return [
         "student-name" => "Student Name",
         "last-updated" => "Last Updated",
         "completed" => "Completed",
+        "show-code" => "Show code",
     ],
     "usage-table" => [
         "exercise" => "Exercise",

@@ -6,14 +6,14 @@
 <section id="studentResponses">
     <div class="panel panel-info">
         <div class="panel-heading response-panel-header">
-            <div class="row">
-                <div class="col-xs-6">
+            <div class="row d-flex justify-center items-center font-bold text-lg text-blue-900 h-14">
+                <div class="col-xs-4">
                     <h4 class="results-table-hdr">{%trans%}results-table.student-name{%endtrans%}</h4>
                 </div>
-                <div class="col-xs-3 text-center">
+                <div class="d-flex justify-center items-center col-xs-4">
                     <h4 class="results-table-hdr">{%trans%}results-table.last-updated{%endtrans%}</h4>
                 </div>
-                <div class="col-xs-3 text-center">
+                <div class="d-flex justify-center items-center col-xs-4">
                     <h4 class="results-table-hdr">{%trans%}results-table.completed{%endtrans%}</h4>
                 </div>
             </div>
@@ -23,38 +23,52 @@
                 {% if not student.isInstructor %}
                     <div class="list-group-item response-list-group-item">
                         <div class="row">
-                            <div class="col-xs-6 header-col">
-                                <a href="#responses{{ student.user.getUserId() }}" class="h4 response-collapse-link" data-toggle="collapse">
+                            <div class="col-xs-4 d-flex">
+                                <a href="#responses{{ student.user.getUserId() }}" class="h5 response-collapse-link" data-toggle="collapse">
                                     {{ student.user.getDisplayname() }}
                                     <span class="fa fa-chevron-down rotate" aria-hidden="true"></span>
                                 </a>
                             </div>
-                            <div class="col-xs-3 text-center header-col">
+                            <div class="col-xs-4 d-flex justify-center">
                                 <span class="h5 inline">{{ student.formattedMostRecentDate }}</span>
                             </div>
-                            <div class="col-xs-3 text-center header-col">
+                            <div class="col-xs-4 d-flex justify-center">
                                 <span class="h5 inline">{{ student.numberAnswered }} / {{ totalExercises }}</span>
                             </div>
                             <div id="responses{{ student.user.getUserId() }}" class="col-xs-12 results-collapse collapse">
                                 {% for exercise in exercises %}
                                     {% set answer = student.user.getAnswerForExercise(exercise.getExerciseId(), exercise.getCtId()) %}
-                                    <div class="row response-row">
-                                        <div class="col-sm-5">
-                                            <h4 class="small-hdr hdr-notop-mrgn">
-                                                <small>{%trans%}general.exercise{%endtrans%} {{ exercise.getExerciseNum() }}</small>
-                                            </h4>
-                                            {% autoescape false %}
-                                            <div>{{ exercise.getTitle() }}</div>
-                                            {% endautoescape %}
+                                    <div class="row response-row d-flex" style="min-height:100px;">
+                                        <div class="col-xs-4 self-center w-25">
+                                            <div>
+                                                <small style="font-weight:bold;">{%trans%}general.exercise{%endtrans%} {{ exercise.getExerciseNum() }}</small>
+                                                {% autoescape false %}
+                                                    <div class="truncate" title="{{ exercise.getTitle() }}">{{ exercise.getTitle() }}</div>
+                                                {% endautoescape %}
+                                            </div>
                                         </div>
-                                        <div class="col-sm-offset-1 col-sm-5" style="height:300px;overflow: scroll;">
-                                            <p class="response-text"><pre>{{ answer.getAnswerTxt() }}</pre></p>
+                                        <div class="col-xs-4 d-flex self-center justify-center">
+                                            <button id="btnModalCode{{answer.getAnswerId()}}" onclick="showModal({{answer.answerId}})" class="display-code mr-3">
+                                                {%trans%}results-table.show-code{%endtrans%}
+                                            </button>
+                                        </div>                                     
+                                        <div id="modalCode{{answer.getAnswerId()}}" class="code-modal">
+                                            <div class="code-modal-content row">
+                                                <div class="font-bold text-lg mt-2">
+                                                    <div class="col-xs-6 d-flex">{%trans%}general.exercise{%endtrans%} {{ exercise.getExerciseNum() }}</div>
+                                                    <div class="col-xs-6 d-flex justify-end">{{ student.user.getDisplayname() }}</div>
+                                                </div>
+
+                                                <div class="col-xs-12 h-4 border-b border-blue-900"></div>
+
+                                                <div class="col-xs-12 d-flex mt-5 whitespace-pre text-blue-900 bg-gray-100 rounded-md p-5"><a>{{ answer.getAnswerTxt() }}</a></div> 
+                                            </div>
                                         </div>
-                                        <div class="col-sm-1">
-                                            <span aria-hidden="true" class="fas fa-thumbs-{{answer.getAnswerSuccess() ? 'up' : 'down'}} text-success"></span>
-									{% if answer.getAnswerSuccess() != 1 %}	
-										{{ include('answer/answer-diffs.php', { 'answer' : answer}) }}
-									{% endif %}
+                                        <div class="col-xs-4 d-flex self-center justify-center">
+                                            <span aria-hidden="true" class="{{answer.getAnswerSuccess() ? 'fa fa-check-circle-o' : 'fa fa-times-circle-o'}} d-flex self-center justify-center"></span> 
+									        {% if answer.getAnswerSuccess() != 1 %}	
+										        {{ include('answer/answer-diffs.php', { 'answer' : answer}) }}
+									        {% endif %}
                                         </div>
                                     </div>
                                 {% endfor %}
